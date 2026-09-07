@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { projectsData, ProjectCaseStudy } from '../../data/projectsData';
 import { Drawer } from '../common/Drawer';
-import { ExternalLink, Github, ArrowRight, AlertTriangle, CheckCircle, Cpu } from 'lucide-react';
+import { EditorialPhoto } from '../common/EditorialPhoto';
+import { ExternalLink, Github, ArrowRight, AlertTriangle, CheckCircle, Cpu, Layers, Workflow, Wrench } from 'lucide-react';
 
 export const WorkshopSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
+  const [activeEvidenceTab, setActiveEvidenceTab] = useState<'BUILD' | 'THINK' | 'PROCESS'>('BUILD');
 
   return (
     <section id="workshop" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F1F0EC] dark:bg-[#16181D] border-t border-b border-[#E5E4DE] dark:border-[#2D3139]">
@@ -13,13 +15,13 @@ export const WorkshopSection: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-3">
           <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
-            04 — THE WORKSHOP
+            04 — THE WORKSHOP & EVIDENCE LAYER
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#121316] dark:text-white">
             Engineering Case Studies
           </h2>
           <p className="text-base sm:text-lg font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed">
-            Real builds require honest engineering disclosures: architectural trade-offs, performance bottlenecks, what broke during load, and actual outcomes.
+            Real builds require honest engineering disclosures: what was actually built (<span className="font-mono text-xs text-[#0047FF] dark:text-[#3B82F6]">BUILD</span>), architectural system designs (<span className="font-mono text-xs text-[#10B981]">THINK</span>), and development process artifacts (<span className="font-mono text-xs text-[#F59E0B]">PROCESS</span>).
           </p>
         </div>
 
@@ -77,7 +79,21 @@ export const WorkshopSection: React.FC = () => {
                   </p>
                 </div>
 
+                {/* Evidence Thumbnail Preview Strip */}
                 <div className="space-y-2 pt-2 border-t border-[#E5E4DE] dark:border-[#2D3139]">
+                  <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold flex items-center space-x-1.5">
+                    <Layers className="w-3 h-3 text-[#0047FF]" />
+                    <span>EVIDENCE PREVIEW (BUILD / THINK / PROCESS)</span>
+                  </span>
+                  <EditorialPhoto
+                    src={project.evidence.buildImage}
+                    alt={`${project.name} build screenshot`}
+                    label="EVIDENCE // BUILD"
+                    aspectRatio="aspect-[16/9]"
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold">
                     PROBLEM STATEMENT
                   </span>
@@ -100,10 +116,13 @@ export const WorkshopSection: React.FC = () => {
 
               <div className="mt-8 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139]">
                 <button
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => {
+                    setSelectedProject(project);
+                    setActiveEvidenceTab('BUILD');
+                  }}
                   className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-mono font-bold text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#252830] hover:bg-[#0047FF] hover:text-white dark:hover:bg-[#0047FF] transition-colors rounded-sm group"
                 >
-                  <span>READ DEEP CASE STUDY</span>
+                  <span>READ CASE STUDY & EVIDENCE</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -144,6 +163,83 @@ export const WorkshopSection: React.FC = () => {
                   <Github className="w-3.5 h-3.5" />
                   <span>Source Code</span>
                 </a>
+              )}
+            </div>
+
+            {/* THREE EVIDENCE TABS INTERFACE */}
+            <div className="space-y-4 p-4 bg-[#F8F7F4] dark:bg-[#1A1C20] border border-[#D1D1C7] dark:border-[#2D3139] rounded-sm">
+              <div className="flex items-center justify-between border-b border-[#E5E4DE] dark:border-[#2D3139] pb-3">
+                <span className="text-xs font-mono font-bold tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase">
+                  EVIDENCE LAYER
+                </span>
+                <div className="flex space-x-1">
+                  <button
+                    onClick={() => setActiveEvidenceTab('BUILD')}
+                    className={`px-3 py-1 text-xs font-mono rounded-sm transition-colors flex items-center space-x-1 ${
+                      activeEvidenceTab === 'BUILD'
+                        ? 'bg-[#0047FF] text-white font-bold'
+                        : 'bg-[#E5E4DE] dark:bg-[#2D3139] text-[#5A5A5A] dark:text-[#A0A0A0]'
+                    }`}
+                  >
+                    <Layers className="w-3 h-3" />
+                    <span>BUILD</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveEvidenceTab('THINK')}
+                    className={`px-3 py-1 text-xs font-mono rounded-sm transition-colors flex items-center space-x-1 ${
+                      activeEvidenceTab === 'THINK'
+                        ? 'bg-[#0047FF] text-white font-bold'
+                        : 'bg-[#E5E4DE] dark:bg-[#2D3139] text-[#5A5A5A] dark:text-[#A0A0A0]'
+                    }`}
+                  >
+                    <Workflow className="w-3 h-3" />
+                    <span>THINK</span>
+                  </button>
+                  {selectedProject.evidence.processImage && (
+                    <button
+                      onClick={() => setActiveEvidenceTab('PROCESS')}
+                      className={`px-3 py-1 text-xs font-mono rounded-sm transition-colors flex items-center space-x-1 ${
+                        activeEvidenceTab === 'PROCESS'
+                          ? 'bg-[#0047FF] text-white font-bold'
+                          : 'bg-[#E5E4DE] dark:bg-[#2D3139] text-[#5A5A5A] dark:text-[#A0A0A0]'
+                      }`}
+                    >
+                      <Wrench className="w-3 h-3" />
+                      <span>PROCESS</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Tab Display */}
+              {activeEvidenceTab === 'BUILD' && (
+                <EditorialPhoto
+                  src={selectedProject.evidence.buildImage}
+                  alt={`${selectedProject.name} build evidence`}
+                  label="EVIDENCE // BUILD (PRODUCT SCREENSHOT)"
+                  caption={selectedProject.evidence.buildCaption}
+                  aspectRatio="aspect-[16/9]"
+                />
+              )}
+
+              {activeEvidenceTab === 'THINK' && (
+                <EditorialPhoto
+                  src={selectedProject.evidence.thinkImage}
+                  alt={`${selectedProject.name} think evidence`}
+                  label="EVIDENCE // THINK (ARCHITECTURE & DESIGN)"
+                  caption={selectedProject.evidence.thinkCaption}
+                  aspectRatio="aspect-[16/9]"
+                />
+              )}
+
+              {activeEvidenceTab === 'PROCESS' && selectedProject.evidence.processImage && (
+                <EditorialPhoto
+                  src={selectedProject.evidence.processImage}
+                  alt={`${selectedProject.name} process evidence`}
+                  label="EVIDENCE // PROCESS (DEVELOPMENT ARTIFACT)"
+                  caption={selectedProject.evidence.processCaption}
+                  aspectRatio="aspect-[16/9]"
+                />
               )}
             </div>
 

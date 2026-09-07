@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { journeyMilestones, JourneyMilestone } from '../../data/journeyData';
 import { Modal } from '../common/Modal';
-import { Users, TrendingUp, Ear, Rocket, HardHat, Code2, ArrowRight } from 'lucide-react';
+import { EditorialPhoto } from '../common/EditorialPhoto';
+import { Users, TrendingUp, Ear, Rocket, HardHat, Code2, ArrowRight, Eye } from 'lucide-react';
 
 export const PathSection: React.FC = () => {
   const [selectedMilestone, setSelectedMilestone] = useState<JourneyMilestone | null>(null);
+  const [hoveredMilestone, setHoveredMilestone] = useState<JourneyMilestone | null>(null);
+  const [expandedMobileId, setExpandedMobileId] = useState<string | null>(null);
 
   const getIconForCategory = (category: JourneyMilestone['category']) => {
     switch (category) {
@@ -18,19 +21,24 @@ export const PathSection: React.FC = () => {
     }
   };
 
+  const toggleMobileExpand = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setExpandedMobileId(expandedMobileId === id ? null : id);
+  };
+
   return (
     <section id="path" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F1F0EC] dark:bg-[#16181D] transition-colors border-t border-b border-[#E5E4DE] dark:border-[#2D3139]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-3">
           <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
-            02 — THE PATH
+            02 — THE PATH & LIVING ARCHIVE
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#121316] dark:text-white">
             Not a straight timeline. An evolving map.
           </h2>
           <p className="text-base sm:text-lg font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed">
-            Click any node on the path to discover how real-world leadership, sales, construction supervision, and business experiments led directly to full-stack engineering.
+            Hover over any milestone on desktop or tap <span className="font-mono text-xs text-[#0047FF] dark:text-[#3B82F6]">VIEW MEMORY →</span> on mobile to reveal authentic fragments of Safwan's journey. Click to open full story.
           </p>
         </div>
 
@@ -43,8 +51,10 @@ export const PathSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              onMouseEnter={() => setHoveredMilestone(item)}
+              onMouseLeave={() => setHoveredMilestone(null)}
               onClick={() => setSelectedMilestone(item)}
-              className="group cursor-pointer bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] dark:hover:border-[#0047FF] p-6 rounded-sm transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
+              className="group cursor-pointer bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] dark:hover:border-[#0047FF] p-6 rounded-sm transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -70,20 +80,98 @@ export const PathSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono">
-                {item.metrics ? (
-                  <span className="text-[#0047FF] dark:text-[#3B82F6] font-semibold">
-                    {item.metrics}
+              {/* Mobile Memory Expander */}
+              <div className="mt-4 pt-3 border-t border-[#E5E4DE] dark:border-[#2D3139]">
+                <button
+                  onClick={(e) => toggleMobileExpand(e, item.id)}
+                  className="sm:hidden w-full mb-3 flex items-center justify-between px-3 py-1.5 text-[11px] font-mono font-bold text-[#0047FF] dark:text-[#3B82F6] bg-[#0047FF]/10 dark:bg-[#0047FF]/20 rounded-sm"
+                >
+                  <span className="flex items-center space-x-1">
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{expandedMobileId === item.id ? 'HIDE MEMORY' : 'VIEW MEMORY →'}</span>
                   </span>
-                ) : (
-                  <span className="text-[#5A5A5A] dark:text-[#A0A0A0]">Explore story</span>
-                )}
-                <span className="group-hover:translate-x-1 transition-transform flex items-center text-[#121316] dark:text-white">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
+                </button>
+
+                <AnimatePresence>
+                  {expandedMobileId === item.id && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="sm:hidden mb-4 overflow-hidden"
+                    >
+                      <EditorialPhoto
+                        src={item.image}
+                        alt={item.title}
+                        label={`ARCHIVE // ${item.year}`}
+                        caption={item.caption}
+                        aspectRatio="aspect-[16/9]"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="flex items-center justify-between text-xs font-mono">
+                  {item.metrics ? (
+                    <span className="text-[#0047FF] dark:text-[#3B82F6] font-semibold">
+                      {item.metrics}
+                    </span>
+                  ) : (
+                    <span className="text-[#5A5A5A] dark:text-[#A0A0A0]">Explore story</span>
+                  )}
+                  <span className="group-hover:translate-x-1 transition-transform flex items-center text-[#121316] dark:text-white font-bold">
+                    <span>DETAILS</span>
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Desktop Hover Memory Reveal Overlay Banner */}
+        <div className="hidden sm:block mt-8 min-h-[160px]">
+          <AnimatePresence mode="wait">
+            {hoveredMilestone ? (
+              <motion.div
+                key={hoveredMilestone.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="bg-[#F8F7F4] dark:bg-[#1C1F26] border-2 border-[#0047FF] p-6 rounded-sm grid grid-cols-1 md:grid-cols-12 gap-6 items-center shadow-lg"
+              >
+                <div className="md:col-span-4">
+                  <EditorialPhoto
+                    src={hoveredMilestone.image}
+                    alt={hoveredMilestone.title}
+                    label={`ARCHIVE // ${hoveredMilestone.year}`}
+                    aspectRatio="aspect-[16/9]"
+                  />
+                </div>
+                <div className="md:col-span-8 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-[#0047FF] text-white rounded-sm">
+                      HOVER MEMORY REVEAL
+                    </span>
+                    <span className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0]">
+                      {hoveredMilestone.year} · {hoveredMilestone.subtitle}
+                    </span>
+                  </div>
+                  <h4 className="text-lg font-display font-bold text-[#121316] dark:text-white">
+                    {hoveredMilestone.title}
+                  </h4>
+                  <p className="text-xs font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed">
+                    {hoveredMilestone.caption}
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="bg-[#F8F7F4]/50 dark:bg-[#1C1F26]/50 border border-dashed border-[#D1D1C7] dark:border-[#2D3139] p-6 rounded-sm text-center flex items-center justify-center text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0]">
+                <span>[ HOVER OVER ANY MILESTONE CARD ABOVE TO DISCOVER CONTEXTUAL ARCHIVAL MEMORIES ]</span>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -96,6 +184,14 @@ export const PathSection: React.FC = () => {
           category={`${selectedMilestone.year} · ${selectedMilestone.category}`}
         >
           <div className="space-y-6">
+            <EditorialPhoto
+              src={selectedMilestone.image}
+              alt={selectedMilestone.title}
+              label={`ARCHIVE // ${selectedMilestone.year}`}
+              caption={selectedMilestone.caption}
+              aspectRatio="aspect-[16/9]"
+            />
+
             <div className="p-4 bg-[#F1F0EC] dark:bg-[#121316] border-l-4 border-[#0047FF] rounded-r-sm">
               <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] uppercase font-bold">
                 SUBTITLE

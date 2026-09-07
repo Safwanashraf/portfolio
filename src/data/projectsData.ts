@@ -1,3 +1,12 @@
+export interface ProjectEvidence {
+  buildImage: string;
+  buildCaption: string;
+  thinkImage: string;
+  thinkCaption: string;
+  processImage?: string;
+  processCaption?: string;
+}
+
 export interface ProjectCaseStudy {
   id: string;
   name: string;
@@ -15,6 +24,7 @@ export interface ProjectCaseStudy {
   whatBroke: string[];
   whatILearned: string[];
   result: string;
+  evidence: ProjectEvidence;
 }
 
 export const projectsData: ProjectCaseStudy[] = [
@@ -49,7 +59,15 @@ export const projectsData: ProjectCaseStudy[] = [
       'High-frequency real-time applications require client-side throttling and database-level optimization from day one.',
       'User interface clarity matters as much as backend throughput when engineers are diagnosing live system bottlenecks.'
     ],
-    result: 'Sub-45ms latency overhead added, handling 10,000+ simulated requests/minute with zero memory leaks.'
+    result: 'Sub-45ms latency overhead added, handling 10,000+ simulated requests/minute with zero memory leaks.',
+    evidence: {
+      buildImage: '/images/projects/devflow-build.jpg',
+      buildCaption: 'BUILD EVIDENCE — Node-graph telemetry dashboard mapping dynamic REST endpoint relationships in real time.',
+      thinkImage: '/images/projects/devflow-think.jpg',
+      thinkCaption: 'THINK EVIDENCE — Event-driven middleware pipeline and WebSocket payload batching architecture diagram.',
+      processImage: '/images/projects/devflow-process.jpg',
+      processCaption: 'PROCESS EVIDENCE — Real local dev environment setup, terminal logs, and load test scripts.'
+    }
   },
   {
     id: 'pulse-commerce',
@@ -82,7 +100,15 @@ export const projectsData: ProjectCaseStudy[] = [
       'Sales principles translate directly into UX architecture: reducing friction at checkout is an engineering problem.',
       'Data integrity during checkout requires database atomicity, not just frontend validation.'
     ],
-    result: 'Achieved sub-800ms initial page load times and 100% atomic inventory accuracy under concurrent buying scenarios.'
+    result: 'Achieved sub-800ms initial page load times and 100% atomic inventory accuracy under concurrent buying scenarios.',
+    evidence: {
+      buildImage: '/images/projects/pulse-build.jpg',
+      buildCaption: 'BUILD EVIDENCE — Optimistic UI storefront catalog and mobile checkout funnel interface.',
+      thinkImage: '/images/projects/pulse-think.jpg',
+      thinkCaption: 'THINK EVIDENCE — Database compound index schema and atomic payment transaction flow model.',
+      processImage: '/images/projects/pulse-process.jpg',
+      processCaption: 'PROCESS EVIDENCE — Friction analysis notes mapping checkout drop-offs from 1,500 customer sales observations.'
+    }
   },
   {
     id: 'orbit-ops',
@@ -114,6 +140,14 @@ export const projectsData: ProjectCaseStudy[] = [
       'Micro-interactions directly influence user focus; when a tool feels smooth, team adoption increases dramatically.',
       'Clean data indexing algorithms prevent heavy database writes during frequent UI updates.'
     ],
-    result: 'Zero layout shift during card drags, supporting 100+ tasks per column seamlessly.'
+    result: 'Zero layout shift during card drags, supporting 100+ tasks per column seamlessly.',
+    evidence: {
+      buildImage: '/images/projects/orbit-build.jpg',
+      buildCaption: 'BUILD EVIDENCE — High-speed Kanban drag-and-drop board with sprint velocity tracking widgets.',
+      thinkImage: '/images/projects/orbit-think.jpg',
+      thinkCaption: 'THINK EVIDENCE — Role-Based Access Control (RBAC) permission matrix & string fractional indexing algorithm.',
+      processImage: '/images/projects/orbit-process.jpg',
+      processCaption: 'PROCESS EVIDENCE — Physical whiteboard task allocation sketch from Alappuzha cross-functional team experiments.'
+    }
   }
 ];

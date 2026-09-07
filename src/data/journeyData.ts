@@ -8,6 +8,8 @@ export interface JourneyMilestone {
   story: string[];
   keyTakeaways: string[];
   metrics?: string;
+  image: string;
+  caption: string;
 }
 
 export const journeyMilestones: JourneyMilestone[] = [
@@ -17,6 +19,8 @@ export const journeyMilestones: JourneyMilestone[] = [
     title: 'Leading a 75-Member Organization',
     subtitle: 'Multilevel Marketing Leadership',
     category: 'LEADERSHIP',
+    image: '/images/journey/2021-team.jpg',
+    caption: '2021 / FIRST TEAM — 75 members, 15-20 active core. First trial in human guidance and responsibility.',
     summary: 'At 19, led a 75-person team with 15–20 core active members. First immersive trial in human guidance, motivation, and responsibility.',
     story: [
       'Stepping into team leadership at a young age forced an immediate realization: people do not follow titles, they follow clarity, consistency, and genuine care.',
@@ -36,6 +40,8 @@ export const journeyMilestones: JourneyMilestone[] = [
     title: 'Brototype & First Revenue Milestone',
     subtitle: 'MERN Stack Learning & Business Development Executive',
     category: 'BUSINESS',
+    image: '/images/journey/brototype.jpg',
+    caption: '2022 / BROTOTYPE — ₹1L+ generated in Month 1 while mastering MERN stack fundamentals.',
     summary: 'Spent ~6 months learning MERN stack fundamentals while driving business development. Generated >₹1 Lakh in the first month as BDE.',
     story: [
       'Joined Brototype to immerse myself in the MERN stack (MongoDB, Express, React, Node.js) while simultaneously stepping into a Business Development Executive role.',
@@ -55,6 +61,8 @@ export const journeyMilestones: JourneyMilestone[] = [
     title: '1,500 Customer Conversations',
     subtitle: 'Lifestyle Company & Sales Team Building',
     category: 'SALES',
+    image: '/images/journey/calls.jpg',
+    caption: '2022-2023 / 1,500 CALLS — Hearing 500+ unique life stories across high-volume customer interactions.',
     summary: 'Spent ~2 months building a sales engine and conducting over 1,500 direct customer conversations, hearing hundreds of human life stories.',
     story: [
       'Helped build and train a dedicated sales unit for a lifestyle company while taking on high-volume customer interactions directly.',
@@ -74,6 +82,8 @@ export const journeyMilestones: JourneyMilestone[] = [
     title: 'The Alappuzha Entrepreneurial Venture',
     subtitle: 'Cross-Functional Startup Exploration',
     category: 'EXPLORATION',
+    image: '/images/journey/entrepreneurship.jpg',
+    caption: '2023 / ALAPPUZHA — 3-4 months on-ground business testing with software and operations peers.',
     summary: 'Co-founded a cross-functional team with software and operations peers, relocated to Alappuzha, and explored a new business model for 3–4 months.',
     story: [
       'Assembled a compact team consisting of software developers and business operations specialists. Relocated to Alappuzha to validate an on-ground business hypothesis.',
@@ -91,8 +101,10 @@ export const journeyMilestones: JourneyMilestone[] = [
     id: 'real-world-engineering-foundations',
     year: '2023 - 2024',
     title: 'Real-World Operations & Independent Learning',
-    subtitle: 'Construction Supervision, Trading, Bridgeon & IGNOU BBA',
+    subtitle: 'Construction Supervision, Trading & IGNOU BBA',
     category: 'EXPLORATION',
+    image: '/images/journey/construction.jpg',
+    caption: '2023-2024 / PHYSICAL SITE SUPERVISION — Site ownership, material quotes, and structural discipline.',
     summary: 'Managed the full physical construction of the family home, traded financial markets, assisted friends’ ventures, and pursued a BBA via IGNOU.',
     story: [
       'Outside digital spaces, took complete ownership of managing the construction of our family home: material vendor comparison, price negotiations, site supervision, and workflow coordination between contractors.',
@@ -112,6 +124,8 @@ export const journeyMilestones: JourneyMilestone[] = [
     title: 'Dedicated Software Engineering Journey',
     subtitle: 'Full-Stack MERN Development & Technical Ambition',
     category: 'SOFTWARE',
+    image: '/images/journey/engineering.jpg',
+    caption: 'PRESENT / MERN STACK MASTERY — Channeling all past leadership and business lessons into software engineering.',
     summary: 'Channelled all past lessons in leadership, sales, and business strategy into full-time MERN stack development with a long-term goal of technical leadership.',
     story: [
       'All previous explorations brought singular clarity: software engineering is where my problem-solving ability, technical curiosity, and human understanding converge.',

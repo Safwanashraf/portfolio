@@ -1,0 +1,35 @@
+# Task Checklist — Safwan's Portfolio ("The Long Way")
+
+- [x] Phase 1: Project Setup & Core Infrastructure
+  - [x] Initialize React + TypeScript Vite app in workspace root
+  - [x] Install dependencies (`lucide-react`, `framer-motion`, `clsx`, `tailwind-merge`, `canvas-confetti`)
+  - [x] Configure Tailwind CSS, fonts, and editorial styling rules in `index.css`
+- [x] Phase 2: Data Models & Content Preparation
+  - [x] Create `src/data/journeyData.ts` (Life & career path milestones)
+  - [x] Create `src/data/projectsData.ts` (Engineering case studies)
+  - [x] Create `src/data/otherSideData.ts` (People, Business, Product, Ownership pillars)
+  - [x] Create `src/data/numbersData.ts` (Verified statistics)
+  - [x] Create `src/data/labData.ts` (Terminal commands, Ask Me Q&A, How I Think framework, Wrong Turns)
+  - [x] Create `src/data/journalData.ts` (7 pre-authored editorial articles)
+  - [x] Create `src/data/aboutData.ts` (13-chapter human story)
+- [x] Phase 3: Component Architecture & Core Layout
+  - [x] Header & Navigation (`src/components/common/Header.tsx`)
+  - [x] Progress Indicator (`src/components/common/ProgressTracker.tsx`)
+  - [x] Modals & Drawers (`src/components/common/Modal.tsx`, `src/components/common/Drawer.tsx`)
+  - [x] Footer (`src/components/common/Footer.tsx`)
+- [x] Phase 4: Implementation of 10 Core Sections
+  - [x] Section 01: Hero / First Step (`HeroSection.tsx`)
+  - [x] Section 02: Interactive Path (`PathSection.tsx`)
+  - [x] Section 03: The Developer (`DeveloperSection.tsx`)
+  - [x] Section 04: The Workshop / Projects (`WorkshopSection.tsx`)
+  - [x] Section 05: The Other Side (`OtherSideSection.tsx`)
+  - [x] Section 06: The Numbers (`NumbersSection.tsx`)
+  - [x] Section 07: The Human / About (`HumanSection.tsx`)
+  - [x] Section 08: The Lab Interactive Playground (`LabSection.tsx`)
+  - [x] Section 09: Editorial Journal (`JournalSection.tsx`)
+  - [x] Section 10: Contact & Action (`ContactSection.tsx`)
+- [x] Phase 5: Polish, Motion & Responsive Verification
+  - [x] Mobile & tablet optimization
+  - [x] Framer motion scroll reveals & smooth transitions
+  - [x] Accessibility & keyboard nav check
+  - [x] Build & verification check (`npx vite build` succeeded)

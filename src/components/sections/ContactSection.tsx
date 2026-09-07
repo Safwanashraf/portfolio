@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github, FileText, Check, Copy, ArrowUpRight } from 'lucide-react';
+import { EditorialPhoto } from '../common/EditorialPhoto';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -15,16 +16,28 @@ export const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F1F0EC] dark:bg-[#16181D] border-t border-[#E5E4DE] dark:border-[#2D3139] transition-colors">
       <div className="max-w-5xl mx-auto space-y-12">
+        {/* Final Personal Artifact Photo Fragment */}
+        <div className="max-w-md mx-auto">
+          <EditorialPhoto
+            src="/images/about/safwan-closing.jpg"
+            alt="Safwan Ashraf — Final Archival Moment"
+            label="HUMAN ARCHIVE // FINAL ARTIFACT"
+            date="2026"
+            aspectRatio="aspect-[16/9]"
+            caption="One step at a time. Building software with human context."
+          />
+        </div>
+
         {/* Section Header */}
-        <div className="space-y-4 text-left">
+        <div className="space-y-4 text-center sm:text-left">
           <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
             10 — CONTACT
           </span>
           <h2 className="text-4xl sm:text-6xl font-display font-extrabold text-[#121316] dark:text-white tracking-tight">
-            FOUND SOMETHING WORTH BUILDING?
+            GOT A PROBLEM WORTH SOLVING?
           </h2>
           <p className="text-lg sm:text-xl font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed max-w-2xl">
-            I'm interested in problems that require more than writing code—problems involving team leadership, customer friction, and commercial scale.
+            I'm interested in problems that require more than just writing code—problems involving team leadership, customer friction, and commercial scale.
           </p>
         </div>
 
@@ -104,7 +117,7 @@ export const ContactSection: React.FC = () => {
 
           {/* Closing Line */}
           <div className="pt-6 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono">
-            <span className="text-[#5A5A5A]">PHILOSOPHY</span>
+            <span className="text-[#5A5A5A]">SAFWAN ASHRAF</span>
             <span className="text-sm font-editorial italic font-bold text-[#121316] dark:text-white">
               One step at a time.
             </span>

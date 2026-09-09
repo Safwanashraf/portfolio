@@ -92,6 +92,9 @@ export const App: React.FC = () => {
   };
 
   const handleNavigateToArticle = (slug: string) => {
+    try {
+      sessionStorage.setItem('scroll:/', String(window.scrollY || 0));
+    } catch {}
     window.location.hash = `#journal/${slug}`;
     setJournalSlug(slug);
   };

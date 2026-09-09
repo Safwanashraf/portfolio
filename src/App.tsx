@@ -75,26 +75,12 @@ export const App: React.FC = () => {
   }, [journalSlug]);
 
   const handleNavigateHome = () => {
-    // Navigate back to the listing route
     window.location.hash = '';
     setJournalSlug(null);
-
-    // Restore previous scroll position for the main page (if any)
-    requestAnimationFrame(() => {
-      try {
-        const v = sessionStorage.getItem('scroll:/');
-        const target = v ? parseFloat(v) : 0;
-        window.scrollTo({ top: target, behavior: 'auto' });
-      } catch {
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      }
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateToArticle = (slug: string) => {
-    try {
-      sessionStorage.setItem('scroll:/', String(window.scrollY || 0));
-    } catch {}
     window.location.hash = `#journal/${slug}`;
     setJournalSlug(slug);
   };

@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { journalArticles, JournalArticle } from '../../data/journalData';
 import { Modal } from '../common/Modal';
-import { BookOpen, Clock, ArrowRight } from 'lucide-react';
+import { EditorialPhoto } from '../common/EditorialPhoto';
+import { BookOpen, Clock, ArrowRight, ExternalLink } from 'lucide-react';
 
-export const JournalSection: React.FC = () => {
+interface JournalSectionProps {
+  onOpenFullArticle?: (slug: string) => void;
+}
+
+export const JournalSection: React.FC<JournalSectionProps> = ({ onOpenFullArticle }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [activeArticle, setActiveArticle] = useState<JournalArticle | null>(null);
 
@@ -13,6 +18,16 @@ export const JournalSection: React.FC = () => {
   const filteredArticles = selectedCategory === 'ALL'
     ? journalArticles
     : journalArticles.filter(art => art.category === selectedCategory);
+
+  const handleReadFullArticle = (slug: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setActiveArticle(null);
+    if (onOpenFullArticle) {
+      onOpenFullArticle(slug);
+    } else {
+      window.location.hash = `#journal/${slug}`;
+    }
+  };
 
   return (
     <section id="journal" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F8F7F4] dark:bg-[#121316] transition-colors">
@@ -26,7 +41,7 @@ export const JournalSection: React.FC = () => {
             Editorial Writings & Reflections
           </h2>
           <p className="text-base font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed">
-            Essays on engineering trade-offs, human psychology, sales lessons, and strategic business decisions.
+            Essays on engineering trade-offs, human psychology, sales lessons, and strategic business decisions. Click any article card to preview or read full essay.
           </p>
         </div>
 
@@ -84,9 +99,15 @@ export const JournalSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono font-bold text-[#121316] dark:text-white group-hover:text-[#0047FF]">
-                <span>READ ARTICLE</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono font-bold">
+                <span className="text-[#5A5A5A] group-hover:text-[#0047FF]">PREVIEW</span>
+                <button
+                  onClick={(e) => handleReadFullArticle(article.slug, e)}
+                  className="px-3 py-1.5 bg-[#0047FF] text-white rounded-sm hover:bg-[#0038CC] transition-colors flex items-center space-x-1"
+                >
+                  <span>READ ARTICLE</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </motion.div>
           ))}
@@ -102,16 +123,39 @@ export const JournalSection: React.FC = () => {
           category={`${activeArticle.category} · ${activeArticle.date} · ${activeArticle.readTime}`}
         >
           <div className="space-y-6">
-            <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] italic font-semibold">
+            {activeArticle.image && (
+              <EditorialPhoto
+                src={activeArticle.image}
+                alt={activeArticle.title}
+                label={`JOURNAL // ${activeArticle.category}`}
+                caption={activeArticle.imageCaption}
+                aspectRatio="aspect-[16/9]"
+              />
+            )}
+
+            <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] italic font-semibold border-l-2 border-[#0047FF] pl-3 py-1">
               "{activeArticle.description}"
             </p>
 
-            <div className="space-y-4 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139]">
+            <div className="space-y-4 pt-2 border-t border-[#E5E4DE] dark:border-[#2D3139]">
               {activeArticle.content.map((p, idx) => (
                 <p key={idx} className="text-sm font-sans leading-relaxed text-[#3A3A3A] dark:text-[#D4D4D4]">
                   {p}
                 </p>
               ))}
+            </div>
+
+            <div className="pt-6 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between">
+              <span className="text-xs font-mono text-[#5A5A5A]">
+                FULL ESSAY AVAILABLE
+              </span>
+              <button
+                onClick={() => handleReadFullArticle(activeArticle.slug)}
+                className="px-4 py-2 bg-[#0047FF] text-white text-xs font-mono font-bold rounded-sm hover:bg-[#0038CC] transition-colors flex items-center space-x-2 shadow-md"
+              >
+                <span>OPEN FULL ARTICLE PAGE</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         </Modal>

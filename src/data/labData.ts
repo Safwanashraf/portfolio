@@ -3,6 +3,8 @@ export interface QAItem {
   question: string;
   answer: string;
   category: 'CAREER' | 'PHILOSOPHY' | 'BUSINESS' | 'ENGINEERING';
+  image?: string;
+  imageCaption?: string;
 }
 
 export interface DecisionStep {
@@ -39,7 +41,9 @@ export const askMeQuestions: QAItem[] = [
     id: 'why-not-conventional-path',
     question: 'Why didn\'t you follow the conventional college path?',
     category: 'CAREER',
-    answer: 'I followed questions instead of a predetermined script. I wanted real-world immersion—leading people, handling customer objections, taking financial responsibility, and observing real human behavior firsthand. That non-linear exploration gave me deep clarity, maturity, and conviction when I chose software engineering.'
+    answer: 'I followed questions instead of a predetermined script. I wanted real-world immersion—leading people, handling customer objections, taking financial responsibility, and observing real human behavior firsthand. That non-linear exploration gave me deep clarity, maturity, and conviction when I chose software engineering.',
+    image: '/images/about/safwan-portrait.jpg',
+    imageCaption: 'HUMAN ARCHIVE // JOURNEY — Independent exploration and real-world immersion.'
   },
   {
     id: 'strongest-skill',
@@ -51,19 +55,25 @@ export const askMeQuestions: QAItem[] = [
     id: 'what-sales-taught',
     question: 'What did sales teach you about engineering?',
     category: 'BUSINESS',
-    answer: 'Sales taught me that users don\'t care about your tech stack; they care about their friction being solved quickly and intuitively. Clean APIs and fast load times are direct drivers of user trust and commercial retention.'
+    answer: 'Sales taught me that users don\'t care about your tech stack; they care about their friction being solved quickly and intuitively. Clean APIs and fast load times are direct drivers of user trust and commercial retention.',
+    image: '/images/journey/brototype.jpg',
+    imageCaption: 'HUMAN ARCHIVE // SALES — Brototype BDE & MERN learning experience.'
   },
   {
     id: 'what-1500-conversations-taught',
     question: 'What did 1,500 conversations teach you?',
     category: 'PHILOSOPHY',
-    answer: 'People have diverse motivations, fears, and hopes. Hearing hundreds of personal stories taught me deep empathy, active listening, and the importance of never making assumptions about what a user or teammate needs.'
+    answer: 'People have diverse motivations, fears, and hopes. Hearing hundreds of personal stories taught me deep empathy, active listening, and the importance of never making assumptions about what a user or teammate needs.',
+    image: '/images/journey/calls.jpg',
+    imageCaption: 'HUMAN ARCHIVE // 1,500 CALLS — Customer conversations and life perspectives.'
   },
   {
     id: 'biggest-lesson',
     question: 'What is your biggest personal lesson?',
     category: 'PHILOSOPHY',
-    answer: 'Never climb a ladder by hurting someone else, and never be afraid to stop a direction that lacks conviction. Pausing an entrepreneurial venture in Alappuzha after evaluating realistic risks taught me that stopping is sometimes the most intelligent strategic choice.'
+    answer: 'Never climb a ladder by hurting someone else, and never be afraid to stop a direction that lacks conviction. Pausing an entrepreneurial venture in Alappuzha after evaluating realistic risks taught me that stopping is sometimes the most intelligent strategic choice.',
+    image: '/images/journey/entrepreneurship.jpg',
+    imageCaption: 'HUMAN ARCHIVE // ALAPPUZHA — Startup experiment & decisive pause.'
   },
   {
     id: 'why-cto-vision',

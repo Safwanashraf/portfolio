@@ -14,13 +14,37 @@ import { HumanSection } from './components/sections/HumanSection';
 import { LabSection } from './components/sections/LabSection';
 import { JournalSection } from './components/sections/JournalSection';
 import { ContactSection } from './components/sections/ContactSection';
+import { JournalArticlePage } from './components/pages/JournalArticlePage';
 
 import { fieldNotesData } from './data/aboutData';
 
 export const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
+  const [journalSlug, setJournalSlug] = useState<string | null>(null);
 
+  // Hash-based Router Sync (handles #journal/[slug])
   useEffect(() => {
+    const syncRouteFromHash = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#journal/')) {
+        const slug = hash.replace('#journal/', '').trim();
+        if (slug) {
+          setJournalSlug(slug);
+          return;
+        }
+      }
+      setJournalSlug(null);
+    };
+
+    syncRouteFromHash();
+    window.addEventListener('hashchange', syncRouteFromHash);
+    return () => window.removeEventListener('hashchange', syncRouteFromHash);
+  }, []);
+
+  // Section Scroll Tracking
+  useEffect(() => {
+    if (journalSlug) return; // Pause section scroll tracking when on full article page
+
     const sections = [
       'hero',
       'path',
@@ -48,7 +72,29 @@ export const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [journalSlug]);
+
+  const handleNavigateHome = () => {
+    window.location.hash = '';
+    setJournalSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateToArticle = (slug: string) => {
+    window.location.hash = `#journal/${slug}`;
+    setJournalSlug(slug);
+  };
+
+  // If viewing a full journal article page
+  if (journalSlug) {
+    return (
+      <JournalArticlePage
+        slug={journalSlug}
+        onNavigateHome={handleNavigateHome}
+        onNavigateToArticle={handleNavigateToArticle}
+      />
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-[#F8F7F4] dark:bg-[#121316] text-[#1A1A1A] dark:text-[#EAEAEA]">
@@ -96,7 +142,7 @@ export const App: React.FC = () => {
 
         <LabSection />
 
-        <JournalSection />
+        <JournalSection onOpenFullArticle={handleNavigateToArticle} />
 
         {/* FIELD NOTE 05 — MERN Engineering Solutions */}
         <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">

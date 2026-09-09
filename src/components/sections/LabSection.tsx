@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   terminalCommands,
   askMeQuestions,
@@ -7,7 +7,8 @@ import {
   wrongTurnsMatrix,
   QAItem
 } from '../../data/labData';
-import { Terminal as TerminalIcon, HelpCircle, GitBranch, AlertCircle, Send, CornerDownLeft } from 'lucide-react';
+import { EditorialPhoto } from '../common/EditorialPhoto';
+import { Terminal as TerminalIcon, HelpCircle, GitBranch, AlertCircle, Send, CornerDownLeft, ChevronDown, Sparkles } from 'lucide-react';
 
 export const LabSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'terminal' | 'askme' | 'think' | 'wrongturns'>('terminal');
@@ -24,6 +25,9 @@ export const LabSection: React.FC = () => {
   // How I Think state
   const [activeStepIdx, setActiveStepIdx] = useState(0);
 
+  // Wrong Turns state (Progressive disclosure accordion - collapsed by default)
+  const [expandedWrongTurnId, setExpandedWrongTurnId] = useState<string | null>(null);
+
   const handleTerminalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleaned = inputVal.trim().toLowerCase();
@@ -38,6 +42,10 @@ export const LabSection: React.FC = () => {
     const response = terminalCommands[cleaned] || `Command not found: '${cleaned}'. Type 'help' for available commands.`;
     setTerminalHistory(prev => [...prev, { cmd: inputVal, output: response }]);
     setInputVal('');
+  };
+
+  const toggleWrongTurn = (id: string) => {
+    setExpandedWrongTurnId(expandedWrongTurnId === id ? null : id);
   };
 
   return (
@@ -168,8 +176,8 @@ export const LabSection: React.FC = () => {
                         : 'bg-[#F8F7F4] dark:bg-[#1C1F26] border-[#D1D1C7] dark:border-[#2D3139] text-[#121316] dark:text-[#EAEAEA] hover:border-[#0047FF]'
                     }`}
                   >
-                    <span>{q.question}</span>
-                    <span className="text-[10px] opacity-75">{q.category}</span>
+                    <span className="truncate pr-2">{q.question}</span>
+                    <span className="text-[10px] opacity-75 shrink-0">{q.category}</span>
                   </button>
                 ))}
               </div>
@@ -192,6 +200,19 @@ export const LabSection: React.FC = () => {
                       {selectedQA.answer}
                     </p>
                   </div>
+
+                  {/* Selective Contextual Photograph (Rendered ONLY when genuine image exists) */}
+                  {selectedQA.image && (
+                    <div className="pt-2 border-t border-[#E5E4DE] dark:border-[#2D3139]">
+                      <EditorialPhoto
+                        src={selectedQA.image}
+                        alt={selectedQA.question}
+                        label="AUTHENTIC MEMORY ARTIFACT"
+                        caption={selectedQA.imageCaption}
+                        aspectRatio="aspect-[16/9]"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -245,31 +266,79 @@ export const LabSection: React.FC = () => {
           </div>
         )}
 
-        {/* TAB 4: WRONG TURNS */}
+        {/* TAB 4: WRONG TURNS (PROGRESSIVE DISCLOSURE ACCORDION) */}
         {activeTab === 'wrongturns' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {wrongTurnsMatrix.map((item) => (
-              <div
-                key={item.id}
-                className="bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] p-6 rounded-sm space-y-4"
-              >
-                <h3 className="text-lg font-display font-bold text-[#121316] dark:text-white">
-                  {item.experience}
-                </h3>
+          <div className="space-y-4 w-full">
+            <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] uppercase tracking-wider mb-2">
+              CLICK ANY LESSON BELOW TO EXPAND DISCLOSURE (ONE AT A TIME)
+            </p>
 
-                <div className="space-y-3 text-xs font-mono">
-                  <div className="p-3 bg-[#E63946]/10 text-[#E63946] dark:text-[#FF8080] border-l-2 border-[#E63946] rounded-r-sm">
-                    <span className="font-bold block uppercase mb-1">WHAT I THOUGHT I'D LEARN:</span>
-                    <p>{item.whatIThought}</p>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {wrongTurnsMatrix.map((item) => {
+                const isOpen = expandedWrongTurnId === item.id;
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => toggleWrongTurn(item.id)}
+                    className={`bg-[#F8F7F4] dark:bg-[#1C1F26] border rounded-sm transition-all duration-300 cursor-pointer p-6 ${
+                      isOpen
+                        ? 'border-[#0047FF] shadow-md'
+                        : 'border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF]/60'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] font-bold uppercase">
+                          WRONG TURN LESSON
+                        </span>
+                        <h3 className="text-lg font-display font-bold text-[#121316] dark:text-white">
+                          {item.experience}
+                        </h3>
+                      </div>
 
-                  <div className="p-3 bg-[#10B981]/10 text-[#10B981] dark:text-[#34D399] border-l-2 border-[#10B981] rounded-r-sm">
-                    <span className="font-bold block uppercase mb-1">WHAT I ACTUALLY LEARNED:</span>
-                    <p>{item.whatIActuallyLearned}</p>
+                      <div className="flex items-center space-x-2 text-xs font-mono text-[#5A5A5A]">
+                        <span className="hidden sm:inline">{isOpen ? 'COLLAPSE' : 'EXPAND LESSON'}</span>
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0047FF]' : ''}`} />
+                      </div>
+                    </div>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                            {/* WHAT HAPPENED */}
+                            <div className="p-4 bg-[#E63946]/10 text-[#E63946] dark:text-[#FF8080] border-l-2 border-[#E63946] rounded-r-sm space-y-1">
+                              <span className="font-bold block uppercase tracking-wider">
+                                WHAT HAPPENED (INITIAL EXPECTATION)
+                              </span>
+                              <p className="font-sans leading-relaxed text-[#121316] dark:text-white pt-1">
+                                {item.whatIThought}
+                              </p>
+                            </div>
+
+                            {/* WHAT I LEARNED */}
+                            <div className="p-4 bg-[#10B981]/10 text-[#10B981] dark:text-[#34D399] border-l-2 border-[#10B981] rounded-r-sm space-y-1">
+                              <span className="font-bold block uppercase tracking-wider">
+                                WHAT I LEARNED (REAL INSIGHT)
+                              </span>
+                              <p className="font-sans leading-relaxed text-[#121316] dark:text-white pt-1">
+                                {item.whatIActuallyLearned}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

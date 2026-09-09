@@ -75,9 +75,20 @@ export const App: React.FC = () => {
   }, [journalSlug]);
 
   const handleNavigateHome = () => {
+    // Navigate back to the listing route
     window.location.hash = '';
     setJournalSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Restore previous scroll position for the main page (if any)
+    requestAnimationFrame(() => {
+      try {
+        const v = sessionStorage.getItem('scroll:/');
+        const target = v ? parseFloat(v) : 0;
+        window.scrollTo({ top: target, behavior: 'auto' });
+      } catch {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+    });
   };
 
   const handleNavigateToArticle = (slug: string) => {

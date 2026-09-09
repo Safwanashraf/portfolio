@@ -31,13 +31,13 @@ export const JournalArticlePage: React.FC<JournalArticlePageProps> = ({
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Navigation Bar */}
         <div className="flex items-center justify-between border-b border-[#E5E4DE] dark:border-[#2D3139] pb-6 font-mono text-xs">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="#journal"
             className="inline-flex items-center space-x-2 text-[#0047FF] dark:text-[#3B82F6] hover:underline font-bold"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>← RETURN TO PORTFOLIO / JOURNAL</span>
-          </button>
+          </a>
 
           <span className="text-[#5A5A5A] uppercase tracking-wider hidden sm:inline">
             EDITORIAL JOURNAL // {article.category}
@@ -164,13 +164,13 @@ export const JournalArticlePage: React.FC<JournalArticlePageProps> = ({
 
         {/* Final Return to Portfolio Button */}
         <div className="text-center pt-8">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="#journal"
             className="inline-flex items-center space-x-2 px-6 py-3.5 text-xs font-mono font-bold tracking-widest text-white bg-[#0047FF] hover:bg-[#0038CC] transition-colors rounded-sm shadow-md"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>RETURN TO MAIN PORTFOLIO</span>
-          </button>
+          </a>
         </div>
       </div>
     </div>

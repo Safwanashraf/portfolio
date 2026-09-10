@@ -41,7 +41,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#121316]/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-[#1c1917]/70 backdrop-blur-sm"
           />
 
           {/* Slide-over Container */}
@@ -50,16 +50,16 @@ export const Drawer: React.FC<DrawerProps> = ({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="relative w-full max-w-2xl h-full bg-[#F8F7F4] dark:bg-[#16181D] border-l border-[#D1D1C7] dark:border-[#2D3139] shadow-2xl flex flex-col z-10"
+            className="relative w-full max-w-2xl h-full bg-[#faf9f5] border-l border-[#e7e5e4] shadow-2xl flex flex-col z-10"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-[#E5E4DE] dark:border-[#2D3139] bg-[#F1F0EC] dark:bg-[#121316]">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#e7e5e4] bg-[#f5f2eb]">
               <div>
-                <h3 className="text-xl font-display font-bold text-[#121316] dark:text-[#EAEAEA]">
+                <h3 className="text-xl font-serif font-bold text-[#1c1917]">
                   {title}
                 </h3>
                 {subtitle && (
-                  <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] mt-0.5">
+                  <p className="text-xs font-mono text-[#78716c] mt-0.5">
                     {subtitle}
                   </p>
                 )}
@@ -67,7 +67,7 @@ export const Drawer: React.FC<DrawerProps> = ({
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-full text-[#5A5A5A] hover:text-[#121316] dark:text-[#A0A0A0] dark:hover:text-white hover:bg-[#E5E4DE] dark:hover:bg-[#2D3139] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0047FF]"
+                className="p-2 rounded-full text-[#78716c] hover:text-[#1c1917] hover:bg-[#e7e5e4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#c2410c]"
                 aria-label="Close panel"
               >
                 <X className="w-5 h-5" />
@@ -75,7 +75,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             </div>
 
             {/* Content Body */}
-            <div className="flex-1 overflow-y-auto p-6 sm:p-8 font-sans leading-relaxed text-[#2A2A2A] dark:text-[#D4D4D4]">
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8 font-sans leading-relaxed text-[#292524]">
               {children}
             </div>
           </motion.div>

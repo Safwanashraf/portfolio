@@ -43,17 +43,17 @@ const KineticCounter: React.FC<CounterProps> = ({ value }) => {
 
 export const NumbersSection: React.FC = () => {
   return (
-    <section id="numbers" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F1F0EC] dark:bg-[#16181D] border-t border-b border-[#E5E4DE] dark:border-[#2D3139] transition-colors">
+    <section id="numbers" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#faf9f5] border-t border-b border-[#e7e5e4] transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-3">
-          <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
+          <span className="text-xs font-mono tracking-widest text-[#c2410c] uppercase font-semibold">
             04 — VERIFIED PROOF
           </span>
-          <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#121316] dark:text-white">
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#1c1917]">
             Quantitative Proof, Not Self-Ratings
           </h2>
-          <p className="text-base sm:text-lg font-sans text-[#5A5A5A] dark:text-[#A0A0A0] leading-relaxed">
+          <p className="text-base sm:text-lg font-sans text-[#57534e] leading-relaxed">
             Every statistic here reflects actual real-world responsibility, direct user interaction, and executed outcomes.
           </p>
         </div>
@@ -67,29 +67,29 @@ export const NumbersSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF]/50 p-8 rounded-sm space-y-4 shadow-sm transition-all"
+              className="bg-[#ffffff] border border-[#e7e5e4] hover:border-[#c2410c]/50 p-8 rounded-sm space-y-4 shadow-sm transition-all"
             >
-              <div className="flex items-baseline space-x-1 font-display">
+              <div className="flex items-baseline space-x-1 font-serif">
                 {item.prefix && (
-                  <span className="text-3xl sm:text-4xl font-bold text-[#0047FF]">
+                  <span className="text-3xl sm:text-4xl font-bold text-[#c2410c]">
                     {item.prefix}
                   </span>
                 )}
-                <span className="text-5xl sm:text-6xl font-extrabold text-[#121316] dark:text-white tracking-tight">
+                <span className="text-5xl sm:text-6xl font-bold text-[#1c1917] tracking-tight">
                   <KineticCounter value={String(item.number)} id={item.id} />
                 </span>
                 {item.suffix && (
-                  <span className="text-3xl sm:text-4xl font-bold text-[#0047FF]">
+                  <span className="text-3xl sm:text-4xl font-bold text-[#c2410c]">
                     {item.suffix}
                   </span>
                 )}
               </div>
 
               <div>
-                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-[#121316] dark:text-white">
+                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-[#1c1917]">
                   {item.label}
                 </h3>
-                <p className="text-xs font-sans text-[#5A5A5A] dark:text-[#A0A0A0] mt-2 leading-relaxed">
+                <p className="text-xs font-sans text-[#57534e] mt-2 leading-relaxed">
                   {item.description}
                 </p>
               </div>

@@ -95,7 +95,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#F8F7F4] dark:bg-[#121316] text-[#1A1A1A] dark:text-[#EAEAEA]">
+    <div className="relative min-h-screen bg-[#faf9f5] text-[#1c1917]">
       {/* Editorial Top Navigation */}
       <Header activeSection={activeSection} />
 

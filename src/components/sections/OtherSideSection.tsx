@@ -6,29 +6,29 @@ import { Users, Briefcase, Compass, ShieldCheck } from 'lucide-react';
 export const OtherSideSection: React.FC = () => {
   const getPillarIcon = (id: string) => {
     switch (id) {
-      case 'people': return <Users className="w-6 h-6 text-[#0047FF]" />;
-      case 'business': return <Briefcase className="w-6 h-6 text-[#10B981]" />;
-      case 'product': return <Compass className="w-6 h-6 text-[#F59E0B]" />;
-      case 'ownership': return <ShieldCheck className="w-6 h-6 text-[#EC4899]" />;
+      case 'people': return <Users className="w-6 h-6 text-[#c2410c]" />;
+      case 'business': return <Briefcase className="w-6 h-6 text-[#b45309]" />;
+      case 'product': return <Compass className="w-6 h-6 text-[#57534e]" />;
+      case 'ownership': return <ShieldCheck className="w-6 h-6 text-[#c2410c]" />;
       default: return null;
     }
   };
 
   return (
-    <section id="otherside" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F8F7F4] dark:bg-[#121316] transition-colors">
+    <section id="otherside" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#faf9f5] transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-4xl mb-16 space-y-4">
-          <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
-            05 — THE OTHER SIDE
+          <span className="text-xs font-mono tracking-widest text-[#c2410c] uppercase font-semibold">
+            06 — THE OTHER SIDE
           </span>
 
-          <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-[#121316] dark:text-white leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#1c1917] leading-tight">
             {headlineQuote}
           </h2>
 
-          <div className="p-4 sm:p-6 bg-[#0047FF]/10 dark:bg-[#0047FF]/20 border-l-4 border-[#0047FF] rounded-r-sm">
-            <p className="text-base sm:text-xl font-editorial italic text-[#121316] dark:text-white">
+          <div className="p-4 sm:p-6 bg-[#f5f2eb] border-l-4 border-[#c2410c] rounded-r-sm">
+            <p className="text-base sm:text-xl font-serif italic text-[#1c1917]">
               "{positioningStatement}"
             </p>
           </div>
@@ -43,24 +43,24 @@ export const OtherSideSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-[#F1F0EC] dark:bg-[#1A1C20] border border-[#D1D1C7] dark:border-[#2D3139] p-6 sm:p-8 rounded-sm space-y-6 flex flex-col justify-between"
+              className="bg-[#ffffff] border border-[#e7e5e4] hover:border-[#c2410c]/50 p-6 sm:p-8 rounded-sm space-y-6 flex flex-col justify-between shadow-sm transition-all"
             >
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2.5 bg-[#F8F7F4] dark:bg-[#121316] rounded-sm">
+                  <div className="p-2.5 bg-[#f5f2eb] rounded-sm">
                     {getPillarIcon(pillar.id)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-display font-bold text-[#121316] dark:text-white">
+                    <h3 className="text-xl font-serif font-bold text-[#1c1917]">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0]">
+                    <p className="text-xs font-mono text-[#78716c]">
                       {pillar.tagline}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm font-sans text-[#3A3A3A] dark:text-[#D4D4D4] leading-relaxed">
+                <p className="text-sm font-sans text-[#57534e] leading-relaxed">
                   {pillar.description}
                 </p>
 
@@ -68,7 +68,7 @@ export const OtherSideSection: React.FC = () => {
                   {pillar.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-2.5 py-1 text-xs font-mono font-semibold bg-[#F8F7F4] dark:bg-[#121316] text-[#121316] dark:text-[#EAEAEA] border border-[#D1D1C7] dark:border-[#2D3139] rounded-sm"
+                      className="px-2.5 py-1 text-xs font-mono font-semibold bg-[#f5f2eb] text-[#1c1917] border border-[#e7e5e4] rounded-sm"
                     >
                       {skill}
                     </span>
@@ -76,8 +76,8 @@ export const OtherSideSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139]">
-                <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] font-semibold">
+              <div className="pt-4 border-t border-[#e7e5e4]">
+                <p className="text-xs font-mono text-[#c2410c] font-bold">
                   KEY INSIGHT: "{pillar.keyInsight}"
                 </p>
               </div>

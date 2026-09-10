@@ -41,7 +41,7 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#121316]/75 backdrop-blur-sm"
+            className="fixed inset-0 bg-[#1c1917]/70 backdrop-blur-sm"
           />
 
           {/* Modal Container */}
@@ -50,18 +50,18 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-3xl max-h-[90vh] bg-[#F8F7F4] dark:bg-[#1A1C20] border border-[#D1D1C7] dark:border-[#2D3139] shadow-2xl rounded-sm overflow-hidden flex flex-col z-10 my-auto"
+            className="relative w-full max-w-3xl max-h-[90vh] bg-[#faf9f5] border border-[#e7e5e4] shadow-2xl rounded-sm overflow-hidden flex flex-col z-10 my-auto"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5E4DE] dark:border-[#2D3139] bg-[#F1F0EC] dark:bg-[#141518]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#e7e5e4] bg-[#f5f2eb]">
               <div>
                 {category && (
-                  <span className="text-[10px] font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase">
+                  <span className="text-[10px] font-mono tracking-widest text-[#c2410c] uppercase font-bold">
                     {category}
                   </span>
                 )}
                 {title && (
-                  <h3 className="text-lg font-display font-semibold text-[#121316] dark:text-[#EAEAEA]">
+                  <h3 className="text-xl font-serif font-bold text-[#1c1917]">
                     {title}
                   </h3>
                 )}
@@ -69,7 +69,7 @@ export const Modal: React.FC<ModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-full text-[#5A5A5A] hover:text-[#121316] dark:text-[#A0A0A0] dark:hover:text-white hover:bg-[#E5E4DE] dark:hover:bg-[#2D3139] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0047FF]"
+                className="p-1.5 rounded-full text-[#78716c] hover:text-[#1c1917] hover:bg-[#e7e5e4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#c2410c]"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -77,7 +77,7 @@ export const Modal: React.FC<ModalProps> = ({
             </div>
 
             {/* Scrollable Content Body */}
-            <div className="p-6 sm:p-8 overflow-y-auto font-sans leading-relaxed text-[#2A2A2A] dark:text-[#D4D4D4]">
+            <div className="p-6 sm:p-8 overflow-y-auto font-sans leading-relaxed text-[#292524]">
               {children}
             </div>
           </motion.div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { journalArticles, JournalArticle } from '../../data/journalData';
 import { Modal } from '../common/Modal';
 import { EditorialPhoto } from '../common/EditorialPhoto';
@@ -35,7 +35,7 @@ export const JournalSection: React.FC<JournalSectionProps> = ({ onOpenFullArticl
         {/* Section Header */}
         <div className="max-w-3xl mb-12 space-y-3">
           <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
-            09 — JOURNAL
+            07 — JOURNAL
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#121316] dark:text-white">
             Editorial Writings & Reflections
@@ -62,56 +62,59 @@ export const JournalSection: React.FC<JournalSectionProps> = ({ onOpenFullArticl
           ))}
         </div>
 
-        {/* Article Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredArticles.map((article, idx) => (
-            <motion.div
-              key={article.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              onClick={() => setActiveArticle(article)}
-              className="bg-[#F1F0EC] dark:bg-[#1A1C20] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] p-6 rounded-sm cursor-pointer flex flex-col justify-between transition-all group"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-[#0047FF] dark:text-[#3B82F6] font-bold uppercase">
-                    {article.category}
-                  </span>
-                  <span className="text-[#5A5A5A] flex items-center space-x-1">
-                    <Clock className="w-3 h-3" />
-                    <span>{article.readTime}</span>
-                  </span>
-                </div>
+        {/* Article Cards Grid with Smooth Layout Reordering */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredArticles.map((article) => (
+              <motion.div
+                key={article.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setActiveArticle(article)}
+                className="bg-[#F1F0EC] dark:bg-[#1A1C20] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] p-6 rounded-sm cursor-pointer flex flex-col justify-between transition-all group"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[#0047FF] dark:text-[#3B82F6] font-bold uppercase">
+                      {article.category}
+                    </span>
+                    <span className="text-[#5A5A5A] flex items-center space-x-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{article.readTime}</span>
+                    </span>
+                  </div>
 
-                <div>
-                  <h3 className="text-lg font-display font-bold text-[#121316] dark:text-white group-hover:text-[#0047FF] transition-colors leading-snug">
-                    {article.title}
-                  </h3>
-                  <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] mt-1">
-                    {article.date}
+                  <div>
+                    <h3 className="text-lg font-display font-bold text-[#121316] dark:text-white group-hover:text-[#0047FF] transition-colors leading-snug">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] mt-1">
+                      {article.date}
+                    </p>
+                  </div>
+
+                  <p className="text-xs font-sans text-[#3A3A3A] dark:text-[#D4D4D4] leading-relaxed line-clamp-3">
+                    {article.description}
                   </p>
                 </div>
 
-                <p className="text-xs font-sans text-[#3A3A3A] dark:text-[#D4D4D4] leading-relaxed line-clamp-3">
-                  {article.description}
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono font-bold">
-                <span className="text-[#5A5A5A] group-hover:text-[#0047FF]">PREVIEW</span>
-                <button
-                  onClick={(e) => handleReadFullArticle(article.slug, e)}
-                  className="px-3 py-1.5 bg-[#0047FF] text-white rounded-sm hover:bg-[#0038CC] transition-colors flex items-center space-x-1"
-                >
-                  <span>READ ARTICLE</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <div className="mt-6 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] flex items-center justify-between text-xs font-mono font-bold">
+                  <span className="text-[#5A5A5A] group-hover:text-[#0047FF]">PREVIEW</span>
+                  <button
+                    onClick={(e) => handleReadFullArticle(article.slug, e)}
+                    className="px-3 py-1.5 bg-[#0047FF] text-white rounded-sm hover:bg-[#0038CC] transition-colors flex items-center space-x-1"
+                  >
+                    <span>READ ARTICLE</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Article Detail Modal */}

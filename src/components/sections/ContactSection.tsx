@@ -57,15 +57,15 @@ export const ContactSection: React.FC = () => {
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleCopyEmail}
-                className="inline-flex items-center space-x-2 px-4 py-2.5 text-xs font-mono font-bold text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#252830] hover:bg-[#D1D1C7] transition-colors rounded-sm"
+                className="relative inline-flex items-center space-x-2 px-4 py-2.5 text-xs font-mono font-bold text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#252830] hover:bg-[#D1D1C7] active:scale-95 transition-all rounded-sm"
               >
                 {copied ? <Check className="w-4 h-4 text-[#10B981]" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? 'COPIED!' : 'COPY EMAIL'}</span>
+                <span>{copied ? 'COPIED TO CLIPBOARD!' : 'COPY EMAIL'}</span>
               </button>
 
               <a
                 href={`mailto:${email}`}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 text-xs font-mono font-bold text-white bg-[#0047FF] hover:bg-[#0038CC] transition-colors rounded-sm shadow-md"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 text-xs font-mono font-bold text-white bg-[#0047FF] hover:bg-[#0038CC] active:scale-95 transition-all rounded-sm shadow-md"
               >
                 <Mail className="w-4 h-4" />
                 <span>SEND MAIL</span>

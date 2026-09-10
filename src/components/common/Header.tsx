@@ -29,7 +29,9 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
 
   const navLinks = [
     { label: 'WORK', href: '#workshop' },
-    { label: 'JOURNEY', href: '#path' },
+    { label: 'STACK', href: '#developer' },
+    { label: 'PROOF', href: '#numbers' },
+    { label: 'STORY', href: '#path' },
     { label: 'LAB', href: '#lab' },
     { label: 'WRITING', href: '#journal' },
   ];
@@ -57,21 +59,27 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
           </span>
         </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8 text-xs font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0]">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`hover:text-[#0047FF] dark:hover:text-[#3B82F6] transition-colors ${
-                activeSection === link.href.replace('#', '')
-                  ? 'text-[#0047FF] dark:text-[#3B82F6] font-semibold underline underline-offset-4'
-                  : ''
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Desktop Navigation Links with Animated Active Highlight */}
+        <nav className="hidden md:flex items-center space-x-1 text-xs font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0]">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.replace('#', '');
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`relative px-3 py-1.5 transition-colors ${
+                  isActive
+                    ? 'text-[#0047FF] dark:text-[#3B82F6] font-semibold'
+                    : 'hover:text-[#121316] dark:hover:text-white'
+                }`}
+              >
+                {isActive && (
+                  <span className="absolute inset-0 bg-[#0047FF]/10 dark:bg-[#0047FF]/20 rounded-sm border border-[#0047FF]/20 -z-10" />
+                )}
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Action Controls & Dark Mode Toggle */}

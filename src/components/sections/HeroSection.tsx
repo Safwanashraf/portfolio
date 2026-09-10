@@ -106,28 +106,28 @@ export const HeroSection: React.FC = () => {
         >
           <div className="flex flex-wrap items-center gap-4">
             <a
-              href="#path"
-              className="inline-flex items-center space-x-2 px-6 py-3.5 text-xs font-mono font-bold tracking-widest text-white bg-[#0047FF] hover:bg-[#0038CC] transition-colors rounded-sm shadow-md"
+              href="#workshop"
+              className="inline-flex items-center space-x-2 px-6 py-3.5 text-xs font-mono font-bold tracking-widest text-white bg-[#0047FF] hover:bg-[#0038CC] active:scale-95 transition-all rounded-sm shadow-md group"
             >
-              <Compass className="w-4 h-4" />
-              <span>START THE JOURNEY</span>
+              <span>VIEW CASE STUDIES & PROOF</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
             <a
-              href="#workshop"
-              className="inline-flex items-center space-x-2 px-6 py-3.5 text-xs font-mono font-bold tracking-widest text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#1F2228] hover:bg-[#D1D1C7] dark:hover:bg-[#2D3139] transition-colors rounded-sm border border-transparent hover:border-[#D1D1C7]"
+              href="#path"
+              className="inline-flex items-center space-x-2 px-6 py-3.5 text-xs font-mono font-bold tracking-widest text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#1F2228] hover:bg-[#D1D1C7] dark:hover:bg-[#2D3139] active:scale-95 transition-all rounded-sm border border-transparent hover:border-[#D1D1C7]"
             >
-              <span>VIEW THE WORK</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <Compass className="w-4 h-4 text-[#0047FF]" />
+              <span>THE NARRATIVE & ORIGINS</span>
             </a>
           </div>
 
           <a
-            href="#path"
+            href="#workshop"
             className="inline-flex items-center space-x-2 text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] hover:text-[#0047FF] dark:hover:text-white transition-colors"
           >
-            <span>SCROLL TO DISCOVER</span>
-            <ArrowDown className="w-4 h-4 animate-bounce" />
+            <span>SCROLL FOR PROOF</span>
+            <ArrowDown className="w-4 h-4 animate-bounce text-[#0047FF]" />
           </a>
         </motion.div>
       </div>

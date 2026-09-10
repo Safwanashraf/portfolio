@@ -115,9 +115,17 @@ export const LabSection: React.FC = () => {
           </button>
         </div>
 
-        {/* TAB 1: TERMINAL */}
-        {activeTab === 'terminal' && (
-          <div className="bg-[#121316] text-[#00FF66] font-mono p-6 rounded-sm shadow-2xl border border-[#2D3139] space-y-4 max-w-4xl min-h-[380px] flex flex-col justify-between">
+        {/* TAB CONTENT PANELS WITH ANIMATEPRESENCE */}
+        <AnimatePresence mode="wait">
+          {activeTab === 'terminal' && (
+            <motion.div
+              key="terminal-tab"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="bg-[#121316] text-[#00FF66] font-mono p-6 rounded-sm shadow-2xl border border-[#2D3139] space-y-4 max-w-4xl min-h-[380px] flex flex-col justify-between"
+            >
             <div className="flex items-center justify-between border-b border-[#2D3139] pb-3 text-xs text-[#A0A0A0]">
               <span className="flex items-center space-x-2">
                 <span className="w-3 h-3 rounded-full bg-[#FF5F56]" />
@@ -155,12 +163,19 @@ export const LabSection: React.FC = () => {
                 <CornerDownLeft className="w-4 h-4" />
               </button>
             </form>
-          </div>
+          </motion.div>
         )}
 
         {/* TAB 2: ASK ME */}
         {activeTab === 'askme' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <motion.div
+            key="askme-tab"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+          >
             <div className="lg:col-span-5 space-y-2">
               <span className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] uppercase tracking-wider">
                 SELECT A QUESTION
@@ -216,12 +231,19 @@ export const LabSection: React.FC = () => {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* TAB 3: HOW I THINK */}
         {activeTab === 'think' && (
-          <div className="space-y-8">
+          <motion.div
+            key="think-tab"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-8"
+          >
             <p className="text-sm font-sans text-[#5A5A5A] dark:text-[#A0A0A0]">
               Safwan generally tries to understand the problem before deciding who is right or wrong. Click steps below:
             </p>
@@ -263,12 +285,19 @@ export const LabSection: React.FC = () => {
                 KEY QUESTION: "{decisionFrameworkSteps[activeStepIdx].keyQuestion}"
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* TAB 4: WRONG TURNS (PROGRESSIVE DISCLOSURE ACCORDION) */}
         {activeTab === 'wrongturns' && (
-          <div className="space-y-4 w-full">
+          <motion.div
+            key="wrongturns-tab"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-4 w-full"
+          >
             <p className="text-xs font-mono text-[#5A5A5A] dark:text-[#A0A0A0] uppercase tracking-wider mb-2">
               CLICK ANY LESSON BELOW TO EXPAND DISCLOSURE (ONE AT A TIME)
             </p>
@@ -339,8 +368,9 @@ export const LabSection: React.FC = () => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </section>
   );

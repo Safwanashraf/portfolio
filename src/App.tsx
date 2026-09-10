@@ -47,12 +47,10 @@ export const App: React.FC = () => {
 
     const sections = [
       'hero',
-      'path',
-      'developer',
       'workshop',
-      'otherside',
+      'developer',
       'numbers',
-      'human',
+      'path',
       'lab',
       'journal',
       'contact',
@@ -104,51 +102,59 @@ export const App: React.FC = () => {
       {/* Floating Side Progress Indicator */}
       <ProgressTracker activeSection={activeSection} />
 
-      {/* 10 Core Sections Flow with Integrated Field Notes */}
+      {/* Re-sequenced 8-Chapter Flow: Proof First, Deep Story Following */}
       <main>
+        {/* CHAPTER 01 — HERO */}
         <HeroSection />
 
-        <PathSection />
-
         {/* FIELD NOTE 01 — Leadership */}
-        <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6">
           <FieldNoteCard note={fieldNotesData[0]} />
         </div>
 
+        {/* CHAPTER 02 — WORKSHOP (PROOFS & CASE STUDIES) */}
+        <WorkshopSection />
+
+        {/* CHAPTER 03 — DEVELOPER STACK & ARCHITECTURE */}
         <DeveloperSection />
 
         {/* FIELD NOTE 02 — Sales Friction */}
-        <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6">
           <FieldNoteCard note={fieldNotesData[1]} />
         </div>
 
-        <WorkshopSection />
+        {/* CHAPTER 04 — NUMBERS & QUANTITATIVE PROOF */}
+        <NumbersSection />
 
         {/* FIELD NOTE 03 — Startup Pause */}
-        <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6">
           <FieldNoteCard note={fieldNotesData[2]} />
         </div>
 
+        {/* CHAPTER 05 — THE NARRATIVE & LIVING ARCHIVE */}
+        <PathSection />
+
         <OtherSideSection />
 
-        <NumbersSection />
-
         {/* FIELD NOTE 04 — Concrete & Construction */}
-        <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6">
           <FieldNoteCard note={fieldNotesData[3]} />
         </div>
 
         <HumanSection />
 
+        {/* CHAPTER 06 — THE LAB */}
         <LabSection />
 
-        <JournalSection onOpenFullArticle={handleNavigateToArticle} />
-
         {/* FIELD NOTE 05 — MERN Engineering Solutions */}
-        <div className="max-w-4xl mx-auto my-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6">
           <FieldNoteCard note={fieldNotesData[4]} />
         </div>
 
+        {/* CHAPTER 07 — JOURNAL */}
+        <JournalSection onOpenFullArticle={handleNavigateToArticle} />
+
+        {/* CHAPTER 08 — CONTACT */}
         <ContactSection />
       </main>
 

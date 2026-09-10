@@ -9,13 +9,45 @@ export const WorkshopSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
   const [activeEvidenceTab, setActiveEvidenceTab] = useState<'BUILD' | 'THINK' | 'PROCESS'>('BUILD');
 
+  // Interactive Mouse Spotlight handler for cards
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  };
+
+  // Explicit connection between Safwan's background and project engineering principles
+  const getBackgroundPrinciple = (projectId: string) => {
+    switch (projectId) {
+      case 'lumina-dashboard':
+        return {
+          source: '1,500 Customer Conversations',
+          principle: 'Silent friction in user workflows kills adoption. Analytics must highlight drop-off immediately.',
+        };
+      case 'pulse-engine':
+        return {
+          source: 'Concrete Construction & Site Supervision',
+          principle: 'Fault tolerance & solid structural integrity before applying visual polish.',
+        };
+      case 'frictionless-checkout':
+        return {
+          source: 'Brototype Sales Closing & Customer Psychology',
+          principle: 'E-commerce friction at checkout directly loses revenue; reduce decision boundaries.',
+        };
+      default:
+        return null;
+    }
+  };
+
   return (
     <section id="workshop" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F1F0EC] dark:bg-[#16181D] border-t border-b border-[#E5E4DE] dark:border-[#2D3139]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-3">
           <span className="text-xs font-mono tracking-widest text-[#0047FF] dark:text-[#3B82F6] uppercase font-semibold">
-            04 — THE WORKSHOP & EVIDENCE LAYER
+            02 — THE WORKSHOP & EVIDENCE LAYER
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#121316] dark:text-white">
             Engineering Case Studies
@@ -27,107 +59,131 @@ export const WorkshopSection: React.FC = () => {
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] dark:hover:border-[#0047FF] p-6 sm:p-8 rounded-sm flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-lg"
-            >
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono tracking-widest px-2.5 py-1 bg-[#0047FF]/10 text-[#0047FF] dark:bg-[#0047FF]/20 dark:text-[#3B82F6] font-bold rounded-sm uppercase">
-                    {project.status} · {project.year}
-                  </span>
-                  <div className="flex items-center space-x-2">
-                    {project.liveLink && (
-                      <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 text-[#5A5A5A] dark:text-[#A0A0A0] hover:text-[#0047FF] dark:hover:text-white transition-colors"
-                        aria-label="View live demo"
+          {projectsData.map((project, idx) => {
+            const principle = getBackgroundPrinciple(project.id);
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                onMouseMove={handleMouseMove}
+                className="group relative bg-[#F8F7F4] dark:bg-[#1C1F26] border border-[#D1D1C7] dark:border-[#2D3139] hover:border-[#0047FF] dark:hover:border-[#0047FF] p-6 sm:p-8 rounded-sm flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden"
+              >
+                {/* Subtle Radial Spotlight Glow Overlay */}
+                <div
+                  className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm"
+                  style={{
+                    background: `radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 71, 255, 0.06), transparent 80%)`,
+                  }}
+                />
+
+                <div className="space-y-6 relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono tracking-widest px-2.5 py-1 bg-[#0047FF]/10 text-[#0047FF] dark:bg-[#0047FF]/20 dark:text-[#3B82F6] font-bold rounded-sm uppercase">
+                      {project.status} · {project.year}
+                    </span>
+                    <div className="flex items-center space-x-2">
+                      {project.liveLink && (
+                        <a
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 text-[#5A5A5A] dark:text-[#A0A0A0] hover:text-[#0047FF] dark:hover:text-white transition-colors"
+                          aria-label="View live demo"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                      {project.sourceLink && (
+                        <a
+                          href={project.sourceLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 text-[#5A5A5A] dark:text-[#A0A0A0] hover:text-[#0047FF] dark:hover:text-white transition-colors"
+                          aria-label="View source code"
+                        >
+                          <Github className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-display font-bold text-[#121316] dark:text-white">
+                      {project.name}
+                    </h3>
+                    <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] mt-1 font-semibold">
+                      ROLE: {project.role}
+                    </p>
+                    <p className="text-xs font-sans text-[#5A5A5A] dark:text-[#A0A0A0] mt-3 leading-relaxed">
+                      {project.tagline}
+                    </p>
+                  </div>
+
+                  {/* NARRATIVE LINKAGE BADGE: Background -> Engineering Principle */}
+                  {principle && (
+                    <div className="p-3 bg-[#F1F0EC] dark:bg-[#121316] border-l-2 border-[#0047FF] rounded-r-sm space-y-1">
+                      <span className="text-[9px] font-mono text-[#0047FF] dark:text-[#3B82F6] font-bold uppercase tracking-widest block">
+                        BACKGROUND LESSON → ARCHITECTURE
+                      </span>
+                      <p className="text-[11px] font-sans text-[#3A3A3A] dark:text-[#D4D4D4] italic leading-tight">
+                        "{principle.principle}"
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Evidence Thumbnail Preview Strip */}
+                  <div className="space-y-2 pt-2 border-t border-[#E5E4DE] dark:border-[#2D3139]">
+                    <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold flex items-center space-x-1.5">
+                      <Layers className="w-3 h-3 text-[#0047FF]" />
+                      <span>EVIDENCE PREVIEW (BUILD / THINK / PROCESS)</span>
+                    </span>
+                    <EditorialPhoto
+                      src={project.evidence.buildImage}
+                      alt={`${project.name} build screenshot`}
+                      label="EVIDENCE // BUILD"
+                      aspectRatio="aspect-[16/9]"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold">
+                      PROBLEM STATEMENT
+                    </span>
+                    <p className="text-xs font-sans text-[#3A3A3A] dark:text-[#D4D4D4] italic">
+                      "{project.problem}"
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 text-[10px] font-mono bg-[#E5E4DE] dark:bg-[#2D3139] text-[#121316] dark:text-[#EAEAEA] rounded-sm"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.sourceLink && (
-                      <a
-                        href={project.sourceLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 text-[#5A5A5A] dark:text-[#A0A0A0] hover:text-[#0047FF] dark:hover:text-white transition-colors"
-                        aria-label="View source code"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="text-xl font-display font-bold text-[#121316] dark:text-white">
-                    {project.name}
-                  </h3>
-                  <p className="text-xs font-mono text-[#0047FF] dark:text-[#3B82F6] mt-1 font-semibold">
-                    ROLE: {project.role}
-                  </p>
-                  <p className="text-xs font-sans text-[#5A5A5A] dark:text-[#A0A0A0] mt-3 leading-relaxed">
-                    {project.tagline}
-                  </p>
+                <div className="mt-8 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139] relative z-10">
+                  <button
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setActiveEvidenceTab('BUILD');
+                    }}
+                    className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-mono font-bold text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#252830] hover:bg-[#0047FF] hover:text-white dark:hover:bg-[#0047FF] transition-colors rounded-sm group"
+                  >
+                    <span>READ CASE STUDY & EVIDENCE</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-
-                {/* Evidence Thumbnail Preview Strip */}
-                <div className="space-y-2 pt-2 border-t border-[#E5E4DE] dark:border-[#2D3139]">
-                  <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold flex items-center space-x-1.5">
-                    <Layers className="w-3 h-3 text-[#0047FF]" />
-                    <span>EVIDENCE PREVIEW (BUILD / THINK / PROCESS)</span>
-                  </span>
-                  <EditorialPhoto
-                    src={project.evidence.buildImage}
-                    alt={`${project.name} build screenshot`}
-                    label="EVIDENCE // BUILD"
-                    aspectRatio="aspect-[16/9]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono tracking-widest text-[#5A5A5A] dark:text-[#A0A0A0] uppercase font-semibold">
-                    PROBLEM STATEMENT
-                  </span>
-                  <p className="text-xs font-sans text-[#3A3A3A] dark:text-[#D4D4D4] italic">
-                    "{project.problem}"
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 text-[10px] font-mono bg-[#E5E4DE] dark:bg-[#2D3139] text-[#121316] dark:text-[#EAEAEA] rounded-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-[#E5E4DE] dark:border-[#2D3139]">
-                <button
-                  onClick={() => {
-                    setSelectedProject(project);
-                    setActiveEvidenceTab('BUILD');
-                  }}
-                  className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-mono font-bold text-[#121316] dark:text-white bg-[#E5E4DE] dark:bg-[#252830] hover:bg-[#0047FF] hover:text-white dark:hover:bg-[#0047FF] transition-colors rounded-sm group"
-                >
-                  <span>READ CASE STUDY & EVIDENCE</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
